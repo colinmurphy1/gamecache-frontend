@@ -86,13 +86,31 @@
 
   <!-- preventDefault makes js take over the form -->
   <form use:form on:submit|preventDefault={logInUser}>
-    <label for="username">Username:</label>
-    <input type="text" id="username" bind:value={username}>
+
+    <div class="grid grid-cols-2 p-1 border-b border-gray-400 w-1/2">
+      <div class="text-gray-800 font-semibold">
+        <label for="username">Username:</label>
+      </div>
+      <div>
+        <input type="text" id="username" bind:value={username} class="w-full h-10 px-3 mb-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline">
+      </div>
+    </div>
+
+
+
+
+
+
+    
+    
+
 
     <label for="password">Password:</label>
-    <input type="password" id="password" bind:value={password}>
+    <input type="password" id="password" bind:value={password} class="w-full h-10 px-3 mb-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline">
 
-    <button>Log in</button>
+    <button class="px-2 py-0.5 rounded text-lg bg-blue-400 hover:bg-blue-500 text-white font-semibold">
+      Log in
+    </button>
 
   </form>
 

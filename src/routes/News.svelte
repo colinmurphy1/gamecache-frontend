@@ -27,12 +27,16 @@
   });
 </script>
 
-<h1>News</h1>
 
-{#each posts as post (post.id)}
-  <Post title={post.title} author={post.User.username} creationDate={post.createdAt} content={post.content} />
-{:else}
+<section class="px-4">
+  <h1 class="text-4xl my-5 font-semibold">News</h1>
 
-<p>There is no news to display</p>
+  {#each posts as post (post.id)}
+    <Post title={post.title} author={post.User.username} creationDate={post.createdAt} content={post.content} />
+  {:else}
+  
+  <p>There is no news to display</p>
+  
+  {/each}
+</section>
 
-{/each}

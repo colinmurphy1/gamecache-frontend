@@ -1,28 +1,36 @@
 <script>
+  // Font Awesome
+  import Icon from 'svelte-awesome';
+  import { calendar, user } from 'svelte-awesome/icons';
+
+  // Marked
+  import { marked } from 'marked';
+
   export let title;
   export let author;
   export let creationDate;
   export let content;
 </script>
 
-<article>
-  <h2>{title}</h2>
-  <div>
-    Posted by <a href="/profile/{author}">{author}</a>
-    on {creationDate}
+<article class="shadow bg-gray-100 my-4 border border-gray-400">
+  <h2 class="border-b border-gray-400 font-semibold bg-gray-200 text-gray-800 py-1 px-2 text-xl">
+    {title}
+  </h2>
+
+  <div class="border-b border-gray-400 text-sm">
+    <div class="inline-block py-1 px-2">
+      <Icon data={calendar} /> {creationDate}
+    </div>
+    <div class="inline-block py-1 px-2">
+      <a href="/users/{author}" class="px-2 py-0.5 rounded text-sm bg-blue-400 hover:bg-blue-500 text-white font-semibold">
+        <Icon data={user} /> 
+        {author}
+      </a>
+    </div>
   </div>
 
-  <div>
-    {content}
+  <div class="p-2">
+    {@html marked.parse(content)}
   </div>
 
 </article>
-
-<style>
-  article {
-    border: solid 1px #000;
-    padding: .25em;
-    margin: 1em;
-  }
-
-</style>
