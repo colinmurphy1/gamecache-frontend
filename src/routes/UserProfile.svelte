@@ -152,6 +152,7 @@
         <a
           href="/api/collection/user/{userProfile.username}.csv"
           class="px-2 py-0.5 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold"
+          target="_blank"
         >
           <Icon data={download} /> CSV
         </a>
