@@ -1,13 +1,27 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount, createEventDispatcher } from "svelte";
   import page from 'page';
 
   // Import Svelte-use-form for the form
-  import { useForm, required } from "svelte-use-form";
+  import { useForm, validators, required, minLength } from "svelte-use-form";
   const form = useForm();
+
+  // Create dispatcher
+  const dispatch = createEventDispatcher();
+
+  // Import API functions
+  import logInUser from "../api/auth/login.js";
 
   // Import the userData store
   import { userData } from '../stores/userdata.js';
+
+  // Import components
+  import CenterPage from "../components/CenterPage.svelte";
+  import Alert from "../components/Alert.svelte";
+
+  import Card from "../components/card/Card.svelte";
+  import CardBody from "../components/card/CardBody.svelte";
+  import CardTitle from "../components/card/CardTitle.svelte";
 
   export let params;
   
@@ -15,51 +29,36 @@
   let username = "";
   let password = "";
   let loginMessage = "";
+  let login;
 
-  // Function for logging in the user
-  const logInUser = async () => {
-
-    // API request data
-    const apiRequest = {
-      username: username,
-      password: password
-    };
-
-    // Make an authentication request to the /api/auth/login endpoint
-    const loginReq = await fetch('https://gamecache.net/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(apiRequest)
-    })
-    .then(response => response.json()) // Convert the response to json
-    .then(data => data);
-
-    // Look at the response message
-    switch(loginReq.message) {
-      // Input validation error (does not meet form req's)
-      case 'InputValidationError':
+  const handleLogin = async () => {
+    // Try to log in using the api
+    try {
+      login = await logInUser(username, password);
+    }
+    catch(exception) {
+      // Catch log in exceptions and display error messages
+      switch(exception) {
+        case 'InputValidationError':
         loginMessage = 'Input validation error';
         return false;
 
-      // Incorrect username or password
-      case 'Unauthorized':
-        loginMessage = 'Incorrect username or password';
-        return false;
-
-      // login good, continue 
-      case 'OK':
-        break;
+        // Incorrect username or password
+        case 'Unauthorized':
+          loginMessage = 'Incorrect username or password';
+          return false;
+        
+        default:
+          loginMessage = 'Error when logging in'
+          return false;
+      }
     }
-
-    // Login successful 
-
-    loginMessage = '';
+    
+    // Login successful, store information in userData store
     console.log('Login successful');
+    loginMessage = '';
 
-    //userData.update(value => loginReq.data);
-    userData.set(loginReq.data);
+    userData.set(login);
 
     // Redirect to home page
     page('/');
@@ -67,55 +66,77 @@
     return true;
   };
 
+  // Hide Nav on page load
+  onMount(() => {
+    dispatch('hideNav', { hidden: true});
+  });
+
+  // Show Nav on page unload
+  onDestroy(() => {
+    dispatch('hideNav', { hidden: false});
+  });
+
 </script>
 
+<CenterPage>
+  <Card custom="md:w-96">
+    <CardTitle title="Log in to Gamecache" />
+    <CardBody>
+      <p class="py-2 mb-2 text-center">
+        Don't have an account yet?
+        <a href="/register" class="hover:underline font-semibold text-blue-900">
+          Sign up here!
+        </a>
+      </p>
+      {#if loginMessage}
+      <Alert message={loginMessage} level="warning" />
+      {/if}
+      <!-- preventDefault makes js take over the form -->
 
-<section>
-  <h2>Log in to gamecache</h2>
-
-  <p>
-    Don't have an account yet?
-    <a href="/signup">Sign up here</a>!
-  </p>
-
-  {#if loginMessage}
-  <div>
-    {loginMessage}
-  </div>
-  {/if}
-
-  <!-- preventDefault makes js take over the form -->
-  <form use:form on:submit|preventDefault={logInUser}>
-
-    <div class="grid grid-cols-2 p-1 border-b border-gray-400 w-1/2">
-      <div class="text-gray-800 font-semibold">
-        <label for="username">Username:</label>
-      </div>
-      <div>
-        <input type="text" id="username" bind:value={username} class="w-full h-10 px-3 mb-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline">
-      </div>
-    </div>
-
-
-
-
-
-
-    
-    
-
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" bind:value={password} class="w-full h-10 px-3 mb-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline">
-
-    <button class="px-2 py-0.5 rounded text-lg bg-blue-400 hover:bg-blue-500 text-white font-semibold">
-      Log in
-    </button>
-
-  </form>
-
-</section>
-
-<style>
-
-</style>
+      <form class="w-full" use:form on:submit|preventDefault={handleLogin}>
+        <div class="md:flex md:items-center mb-2">
+          <div class="md:w-1/3">
+            <label class="block font-semibold md:text-right mb-1 md:mb-0 pr-4" for="username">
+              Username:
+            </label>
+          </div>
+          <div class="md:w-2/3">
+            <input
+              class="w-full appearance-none border-2 border-gray-200 px-2 py-1 focus:outline-none focus:bg-white focus:border-blue-500 rounded"
+              id="username"
+              name="username"
+              type="text"
+              bind:value={username}
+              use:validators={[required], [minLength(1)]}
+            />
+          </div>
+        </div>
+        <div class="md:flex md:items-center mb-2">
+          <div class="md:w-1/3">
+            <label class="block font-semibold md:text-right mb-1 md:mb-0 pr-4" for="password">
+              Password:
+            </label>
+          </div>
+          <div class="md:w-2/3">
+            <input
+              class="w-full appearance-none border-2 border-gray-200 px-2 py-1 focus:outline-none focus:bg-white focus:border-blue-500 rounded"
+              id="password"
+              type="password"
+              name="password"
+              bind:value={password}
+              use:validators={[required],[minLength(8)]}
+            />
+          </div>
+        </div>
+        <div class="md:flex md:items-center">
+          <div class="md:w-1/3"></div>
+          <div class="md:w-2/3">
+            <button class="px-2 py-1 rounded text-lg bg-blue-400 hover:bg-blue-500 text-white font-semibold disabled:bg-gray-400" type="submit" disabled={!$form.valid}>
+              Log in
+            </button>
+          </div>
+        </div>
+      </form>
+    </CardBody>
+  </Card>
+</CenterPage>
