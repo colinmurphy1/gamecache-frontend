@@ -10,6 +10,9 @@
   import getProfile from "../api/profile/getProfile.js";
   import getProfileGames from "../api/profile/getProfileGames.js";
 
+  // Import stores
+  import { userData } from '../stores/userdata.js';
+
   // Load components
   import Page from "../components/Page.svelte";
   import PageTitle from "../components/headings/PageTitle.svelte";
@@ -20,8 +23,6 @@
   import GameList from '../components/GameList.svelte';
   import Alert from "../components/Alert.svelte";
   
-
-
   // Pass in parameters from App.svelte
   export let params;
 
@@ -31,20 +32,35 @@
   let userProfileGames;
   let gamesOwned = 0;
 
+  let errorMessage = ""
+  let errorLevel = "";
+
   onMount(async () => {
 
     // Load Profile
     try {
-      userProfile = await getProfile(username);
+      userProfile = await getProfile(username, $userData.token);
     }
     catch(error) {
-      console.log('Could not load profile: ', error);
+
+      switch (error) {
+        // Profile is private
+        case "NotAuthorized":
+          errorMessage = `${username}'s profile is private.`;
+          errorLevel = "warning"
+          break;
+        // User does not exist
+        case "UserNotFound":
+          errorMessage = "The profile you are trying to view does not exist."
+          errorLevel = "info"
+          break;
+      }
       return false;
     }
 
     // Load Games
     try {
-      userProfileGames = await getProfileGames(username);
+      userProfileGames = await getProfileGames(username, $userData.token);
     }
     catch(error) {
       console.log('Could not load game collection: ', error);
@@ -143,7 +159,9 @@
   </div>
 {:else}
 
-  <Alert title="Error" message="User does not exist." />
+  {#if errorMessage != ""}
+    <Alert message={errorMessage} level={errorLevel} />
+  {/if}
 
 {/if}
 </Page>
