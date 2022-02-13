@@ -51,7 +51,7 @@
         Platform
       </th>
       <th class="p-1">
-        <Icon data={stickyNoteO} />
+        <Icon data={stickyNoteO} class="mx-1" />
       </th>
     </tr>
   </thead>
@@ -77,7 +77,7 @@
       </td>
       <td class="p-1">
         {#if game.notes}
-          <button on:click={() => showNote(game.title, game.notes)}>
+          <button on:click={() => showNote(game.title, game.notes)} class="px-1">
             <Icon data={stickyNote} />
           </button>
         {/if}

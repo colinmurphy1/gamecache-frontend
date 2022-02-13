@@ -10,9 +10,9 @@
   
 </script>
 
-<nav class="bg-gray-200 shadow mb-2">
-  <SiteTitle title="Gamecache.net" />
-  <div class="container max-w-screen-xl mx-auto md:flex md:flex-row md:justify-between md:text-lg">
+<nav class="bg-gray-200 shadow mb-2 border-b border-gray-400">
+  <!--<SiteTitle title="Gamecache.net" />-->
+  <div class="container max-w-screen-xl mx-auto md:flex md:flex-row md:justify-between">
     <ul class="md:flex md:flex-row self-center">
       <NavItem url="/" title="Home" />
       <NavItem url="/news" title="News" />
