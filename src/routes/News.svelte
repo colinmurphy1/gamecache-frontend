@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte";
 
+  import getNews from "../api/news/getNews.js";
+
   import Page from "../components/Page.svelte";
   import Post from "../components/news/Post.svelte";
   import PageTitle from "../components/headings/PageTitle.svelte";
@@ -10,19 +12,6 @@
 
   // posts is an array
   let posts = [];
-
-  async function getNews() {
-    const req = await fetch("https://gamecache.net/api/news/");
-
-    // Abort if request fails
-    if (! req.ok) {
-      return false;
-    }
-
-    const json = await req.json();
-    return json.data;
-
-  }
 
   // Load all news articles on page load
   onMount(async () => {
