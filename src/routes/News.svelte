@@ -4,6 +4,7 @@
   import Page from "../components/Page.svelte";
   import Post from "../components/news/Post.svelte";
   import PageTitle from "../components/headings/PageTitle.svelte";
+  import Alert from "../components/Alert.svelte";
 
   export let params;
 
@@ -35,9 +36,7 @@
   {#each posts as post (post.id)}
     <Post title={post.title} author={post.User.username} creationDate={post.createdAt} content={post.content} />
   {:else}
-  
-  <p>There is no news to display</p>
-  
+    <Alert message="There is no news to display." />
   {/each}
 </Page>
 

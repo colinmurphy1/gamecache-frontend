@@ -4,6 +4,7 @@
 
   import Page from "../components/Page.svelte";
   import UserBox from "../components/allusers/UserBox.svelte";
+  import Alert from "../components/Alert.svelte";
 
   // Import the userData store
   import { userData } from '../stores/userdata.js';
@@ -18,15 +19,14 @@
   userData.subscribe(value => user = value);
 
   onMount(async () => {
-
+    // If the user is logged in, pass the token along with the request
+    // This is so you can see yourself in the list if you have a hidden profile.
     if(user.token) { 
       users = await getAllUsers(user.token);
     }
     else {
       users = await getAllUsers();
     }
-
-    
   });
 </script>
 
@@ -36,10 +36,14 @@
     All users
   </h1>
 
-  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 gap-y-1">
-    {#each users as user (user.id)}
-      <UserBox username={user.username} online={user.online} />
-    {/each}
-  </div>
+  {#if users.length > 0}
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2 gap-y-1">
+      {#each users as user (user.id)}
+        <UserBox username={user.username} online={user.online} />
+      {/each}
+    </div>
+  {:else}
+    <Alert message="There are no user accounts" />
+  {/if}
   
 </Page>

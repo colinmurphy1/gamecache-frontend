@@ -131,7 +131,7 @@
         <div class="md:flex md:items-center">
           <div class="md:w-1/3"></div>
           <div class="md:w-2/3">
-            <button class="px-2 py-1 rounded text-lg bg-blue-400 hover:bg-blue-500 text-white font-semibold disabled:bg-gray-400" type="submit" disabled={!$form.valid}>
+            <button class="px-2 py-1 rounded text-lg bg-blue-400 hover:bg-blue-500 text-white font-semibold disabled:bg-gray-400 focus:outline-none focus:ring focus:border-blue-300" type="submit" disabled={!$form.valid}>
               Log in
             </button>
           </div>
