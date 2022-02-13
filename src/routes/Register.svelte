@@ -24,6 +24,7 @@
   import Card from "../components/card/Card.svelte";
   import CardBody from "../components/card/CardBody.svelte";
   import CardTitle from "../components/card/CardTitle.svelte";
+  import SiteTitle from "../components/SiteTitle.svelte";
 
 
   export let params;
@@ -98,6 +99,8 @@
 </script>
 
 <CenterPage>
+  <SiteTitle />
+
   <Card custom="md:w-96">
     <CardTitle title="Create an account" />
     <CardBody>
