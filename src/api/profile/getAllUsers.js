@@ -1,10 +1,13 @@
 const getAllProfiles = async (token=null) => {
+  let headers = {}
+
+  if(token) {
+    headers.Authorization = token;  
+  }
 
   const allProfileReq = await fetch('https://gamecache.net/api/profile/all', {
     method: 'GET',
-    //headers: {
-    //  Authorization: $userData.token
-    //}
+    headers
   })
   .then(response => response.json())
   .then(data => data);
