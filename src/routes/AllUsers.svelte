@@ -2,7 +2,11 @@
   import { onMount } from "svelte";
   import getAllUsers from "../api/profile/getAllUsers.js";
 
-  import UserBox from "../components/allUsers/UserBox.svelte"
+  import Page from "../components/Page.svelte";
+  import UserBox from "../components/allusers/UserBox.svelte";
+
+  // Import the userData store
+  import { userData } from '../stores/userdata.js';
 
   export let params;
 
@@ -10,13 +14,23 @@
   // Users will be stored here
   let users = [];
 
-  
+  let user;
+  userData.subscribe(value => user = value);
+
   onMount(async () => {
-    users = await getAllUsers();
+
+    if(user.token) { 
+      users = await getAllUsers(user.token);
+    }
+    else {
+      users = await getAllUsers();
+    }
+
+    
   });
 </script>
 
-<section class="px-4">
+<Page>
 
   <h1 class="text-4xl my-5 font-semibold ">
     All users
@@ -27,5 +41,5 @@
       <UserBox username={user.username} online={user.online} />
     {/each}
   </div>
-</section>
-
+  
+</Page>
