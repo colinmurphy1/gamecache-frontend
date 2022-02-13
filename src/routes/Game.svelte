@@ -4,6 +4,9 @@
   // Load API functions
   import getGame from "../api/game/getGame.js";
 
+  // Import stores
+  import { userData } from '../stores/userdata.js';
+
   // Load components
   import Page from "../components/Page.svelte";
   import PageTitle from "../components/headings/PageTitle.svelte";
@@ -18,7 +21,7 @@
   onMount(async () => {
     // Load Game
     try {
-      game = await getGame(params.gameId);
+      game = await getGame(params.gameId, $userData.token);
     }
     catch(error) {
       console.log('Could not load game: ', error);
