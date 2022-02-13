@@ -1,7 +1,9 @@
 <script>
   import { onMount } from "svelte";
 
+  import Page from "../components/Page.svelte";
   import Post from "../components/news/Post.svelte";
+  import PageTitle from "../components/headings/PageTitle.svelte";
 
   export let params;
 
@@ -27,9 +29,8 @@
   });
 </script>
 
-
-<section class="px-4">
-  <h1 class="text-4xl my-5 font-semibold">News</h1>
+<Page>
+  <PageTitle title="News" />
 
   {#each posts as post (post.id)}
     <Post title={post.title} author={post.User.username} creationDate={post.createdAt} content={post.content} />
@@ -38,5 +39,5 @@
   <p>There is no news to display</p>
   
   {/each}
-</section>
+</Page>
 
