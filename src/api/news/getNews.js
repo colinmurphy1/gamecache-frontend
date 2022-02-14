@@ -1,5 +1,5 @@
 const getNews = async () => {
-  const req = await fetch("https://gamecache.net/api/news/");
+  const req = await fetch("/api/news/");
 
   // Abort if request fails
   if (! req.ok) {

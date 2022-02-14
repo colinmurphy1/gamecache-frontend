@@ -7,25 +7,22 @@
   // Import page.js
   import page from 'page';
 
+  // Import API functions
+  import logOutUser from "../api/auth/logout.js";
+
+  let logout;
+
   // log out user
   const endSession = async () => {
-
-    // Log out using the logout endpoint
-    
-    const logoutReq = await fetch('https://gamecache.net/api/auth/logout', {
-      method: 'POST',
-      headers: {
-        Authorization: $userData.token
-      }
-    })
-    .then(response => response.json())
-    .then(data => data);
-  
-    // Could not log out using the API. Still going to clear the data
-    
-    if (logoutReq.message != "OK") {
-      console.log('Could not log out at the API endpoint, clearing storage');
+    // Try to log out using api endpoint
+    try {
+      logout = await logOutUser($userData.token);
     }
+    catch(error) {
+      console.log('Could not log out:', error);
+    }
+
+    console.log("Clearing localstorage");
 
     // Reset userdata store
     userData.set({});
@@ -37,7 +34,6 @@
   };
 
   onMount(() => {
-
     // Check if logged in
     if(! $userData.token) {
       // Not logged in, redirect to login page
@@ -48,6 +44,5 @@
     // Not logged in, log out user.
     endSession();
     return true;
-
   });
 </script>

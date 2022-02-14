@@ -6,7 +6,7 @@ const getGame = async(gameId, token = null) => {
     headers.Authorization = token;
   }
 
-  const gameReq = await fetch(`https://gamecache.net/api/games/id/${gameId}`, {
+  const gameReq = await fetch(`/api/games/id/${gameId}`, {
     method: 'GET',
     headers
   })

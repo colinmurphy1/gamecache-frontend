@@ -8,7 +8,7 @@ const createUser = async (username, password, email) => {
   };
 
   // Make an authentication request to the /api/auth/login endpoint
-  const registerReq = await fetch('https://gamecache.net/api/auth/register', {
+  const registerReq = await fetch('/api/auth/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'

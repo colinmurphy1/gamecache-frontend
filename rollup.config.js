@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 import sveltePreprocess from 'svelte-preprocess' // For Tailwind
+import dev from 'rollup-plugin-dev'; // proxy api req's
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -67,7 +68,14 @@ export default {
 			dedupe: ['svelte']
 		}),
 		commonjs(),
-
+		// Proxy API requests in dev environment to localhost
+		!production && dev({
+			dirs: ['public'],
+			spa: 'index.html',
+			proxy: [
+				{ from: "/api", to: "http://localhost:3000/api/"},
+			],
+		}),
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
 		!production && serve(),

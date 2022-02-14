@@ -9,7 +9,7 @@ const logInUser = async (username, password) => {
   };
 
   // Make an authentication request to the /api/auth/login endpoint
-  const loginReq = await fetch('https://gamecache.net/api/auth/login', {
+  const loginReq = await fetch('/api/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
