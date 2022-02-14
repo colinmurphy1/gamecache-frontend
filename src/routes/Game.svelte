@@ -41,9 +41,9 @@
       <div class="col-span-1 lg:mr-2">
        <Card>
           <CardTitle title="Game Information" />
-          <CardRow key="Publisher:" value={game.info.publisher} url="/publisher/{game.info.publisher}" />
+          <CardRow key="Developer:" value={game.info.Developer.name} url="/games/developer/{game.info.Developer.id}" />
           <CardRow key="Release year:" value={game.info.year} />
-          <CardRow key="Platform:" value={game.info.Device.name} />
+          <CardRow key="Platform:" value={game.info.Device.name} url="/games/platform/{game.info.Device.id}"/>
           <CardRow key="Rating:" value="{game.rating.value} ({game.rating.users} users)" />
         </Card>
       </div>

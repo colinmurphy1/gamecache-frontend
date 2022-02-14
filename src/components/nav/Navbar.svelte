@@ -19,7 +19,7 @@
     </ul>
 
     <!-- Display a border on small screens -->
-    <hr class="border-t border-gray-600 md:display-none">
+    <hr class="border-t border-gray-400 md:display-none">
 
     <ul class="md:flex md:flex-row self-center">
       <!-- Show buttons depending on logon state -->
