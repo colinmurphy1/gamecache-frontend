@@ -96,20 +96,20 @@
         </td>
         <td class="px-1">
           <button
-            class="px-2 py-0.5 rounded bg-yellow-400 hover:bg-yellow-500 text-white font-semibold w-full"
+            class="p-0.5 rounded bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-semibold w-full"
             title="Edit"
             on:click="{editGame(game)}"
           >
-            <Icon data={pencil} />
+            <Icon data={pencil} /> Edit
           </button>
         </td>
         <td class="px-1">
           <button
-            class="px-2 py-0.5 rounded bg-red-400 hover:bg-red-500 text-white font-semibold w-full"
+            class="p-0.5 rounded bg-red-400 hover:bg-red-500 text-red-900 font-semibold w-full"
             title="Delete"
             on:click="{deleteGame(game)}"
           >
-            <Icon data={trash} />
+            <Icon data={trash} /> Delete
           </button>
         </td>
       </tr>
