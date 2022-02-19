@@ -14,7 +14,6 @@
     <ul class="md:flex md:flex-row self-center">
       <NavItem url="/" title="Home" />
       <NavItem url="/news" title="News" />
-      <NavItem url="/games" title="Games" />
       <NavItem url="/users" title="Users" />
       {#if user.token}<NavItem url="/collection" title="My Collection" />{/if}
     </ul>
