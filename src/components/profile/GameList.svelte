@@ -54,8 +54,8 @@
       <th class="p-1">
         Platform
       </th>
-      <th class="p-1">
-        <Icon data={stickyNoteO} class="mx-1" />
+      <th class="p-1 text-center">
+        <Icon data={stickyNoteO} />
       </th>
     </tr>
   </thead>
@@ -79,10 +79,10 @@
       <td class="p-1">
         <abbr title="{game.deviceName}">{game.deviceShortname}</abbr>
       </td>
-      <td class="p-1">
+      <td class="px-1">
         {#if game.notes}
-          <button on:click="{showNote(game)}" class="px-1">
-            <Icon data={stickyNote} />
+          <button on:click="{showNote(game)}" class="rounded font-semibold w-full">
+            <Icon data={stickyNote} /> Note
           </button>
         {/if}
       </td>
