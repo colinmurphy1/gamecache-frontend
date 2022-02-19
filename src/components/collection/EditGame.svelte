@@ -109,10 +109,10 @@
       </div>
 
       <div class="flex flex-row justify-between mt-4">
-        <button class="px-4 py-1 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold text-xl">
+        <button class="px-4 py-1 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold">
           Save
         </button>
-        <button class="px-4 py-1 rounded bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-semibold text-xl" on:click={hideModal}>
+        <button class="px-4 py-1 rounded bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-semibold" on:click={hideModal}>
           Cancel
         </button>
       </div>

@@ -20,7 +20,8 @@
   import CardTitle from "../components/card/CardTitle.svelte";
   import CardRow from "../components/card/CardRow.svelte";
   import CardBody from "../components/card/CardBody.svelte";
-  import GameList from '../components/GameList.svelte';
+  import GameList from '../components/profile/GameList.svelte';
+  import GameNote from '../components/profile/GameNote.svelte';
   import Alert from "../components/Alert.svelte";
   
   // Pass in parameters from App.svelte
@@ -34,6 +35,21 @@
 
   let errorMessage = ""
   let errorLevel = "";
+
+  // For game notes modal
+  let showGameNotes = false;
+  let gameDetails = {}; 
+
+
+  let showNote = (event) => {
+    showGameNotes = true;
+    gameDetails = event.detail;
+  };
+
+  // Hide game notes modal
+  const handleHideModal = (event) => {
+    showGameNotes = false;
+  };
 
   onMount(async () => {
 
@@ -74,33 +90,48 @@
   
 </script>
 
+{#if showGameNotes}
+<!-- Edit game modal -->
+
+  <GameNote game={gameDetails} on:hideModal={handleHideModal} />
+
+{/if}
+
+
 <Page>
   {#if userProfile}
 
   <PageTitle title={userProfile.username} />
+  <div class="flex flex-row justify-between">
+    <div>
+      <!-- USER BADGES -->
+      <div class="flex flex-row space-x-2">
+        <!-- User online -->
+        {#if userProfile.online}
+        <div class="px-2 py-0.5 rounded text-sm bg-green-100 text-green-900 font-semibold">
+          <Icon data={circle} class="inline-block align-middle"/> Online
+        </div>
+        {/if}
+        <!-- User online END -->
 
-
-  <!-- USER BADGES -->
-  <div class="flex flex-row space-x-2">
-    <!-- User online -->
-    {#if userProfile.online}
-    <div class="px-2 py-0.5 rounded text-sm bg-green-100 text-green-900 font-semibold">
-      <Icon data={circle} class="inline-block align-middle"/> Online
+        <!-- User Admin -->
+        {#if userProfile.admin}
+        <div class="px-2 py-0.5 rounded text-sm bg-blue-100 text-blue-900 font-semibold">
+          <Icon data="{shield}" class="inline-block align-middle" /> Site Admin 
+        </div>
+        {/if}
+        <!-- User Admin END -->
+      </div>
+      <!-- USER BADGES END -->
     </div>
-    {/if}
-    <!-- User online END -->
-
-    <!-- User Admin -->
-    {#if userProfile.admin}
-    <div class="px-2 py-0.5 rounded text-sm bg-blue-100 text-blue-900 font-semibold">
-      <Icon data="{shield}" class="inline-block align-middle" /> Site Admin 
+    <div>
+      {#if userProfile.username == $userData.username}
+      <a href="/collection" class="px-2 py-1 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold">
+        Manage Collection
+      </a>
+      {/if}
     </div>
-    {/if}
-    <!-- User Admin END -->
   </div>
-  <!-- USER BADGES END -->
-
-
 
   <!-- Main profile grid -->
   <div class="grid grid-cols-1 lg:grid-cols-3">
@@ -131,7 +162,9 @@
 
         {#if gamesOwned > 0}
           <!-- GAME LIST TABLE -->
-          <GameList games={userProfileGames} />
+          <div class="overflow-x-auto">
+            <GameList games={userProfileGames} on:showNote={showNote}/>
+          </div>
         {:else}
           <div class="px-4 py-6 bg-gray-100 border-gray-400 border w-full text-center">
             {userProfile.username} has no games

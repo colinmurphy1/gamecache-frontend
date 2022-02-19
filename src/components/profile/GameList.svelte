@@ -1,4 +1,8 @@
 <script>
+  // Event dispatcher
+  import {createEventDispatcher} from 'svelte';
+  const dispatch = createEventDispatcher();
+
   // Import games list
   export let games;
 
@@ -7,7 +11,7 @@
   import { stickyNoteO, stickyNote } from 'svelte-awesome/icons';
 
   // Rating stars
-  import Rating from './Rating.svelte';
+  import Rating from '../Rating.svelte';
 
   // Game statii
   const status = {
@@ -26,8 +30,8 @@
   }
 
   // Notes dialog (TODO MAKE THIS A MODAL WITH MARKDOWN!)
-  const showNote = (title, text) => {
-    alert(`Notes for: ${title}\n\n${text}`);
+  const showNote = (game) => {
+    dispatch('showNote', game);
   };
 
 </script>
@@ -77,7 +81,7 @@
       </td>
       <td class="p-1">
         {#if game.notes}
-          <button on:click={() => showNote(game.title, game.notes)} class="px-1">
+          <button on:click="{showNote(game)}" class="px-1">
             <Icon data={stickyNote} />
           </button>
         {/if}
