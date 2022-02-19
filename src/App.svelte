@@ -12,6 +12,8 @@
   import Logout from './routes/Logout.svelte';
   import Register from './routes/Register.svelte'
   import NotFound from './routes/NotFound.svelte';
+  import Collection from './routes/Collection.svelte';
+
 
   let page;
   let params = null;
@@ -45,10 +47,12 @@
     () => page = Game
   );
 
+  // Game collection page
+  router('/collection', () => page = Collection);
+
   // Log in, log out, register endpoints
   router('/login', () => page = Login);
   router('/logout', () => page = Logout);
-
   router('/register', () => page = Register);
 
   // Not Found page

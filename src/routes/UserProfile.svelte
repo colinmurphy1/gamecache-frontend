@@ -8,7 +8,7 @@
 
   // Load API functions
   import getProfile from "../api/profile/getProfile.js";
-  import getProfileGames from "../api/profile/getProfileGames.js";
+  import getProfileGames from "../api/collection/getGames.js";
 
   // Import stores
   import { userData } from '../stores/userdata.js';

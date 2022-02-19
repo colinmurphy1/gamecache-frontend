@@ -7,7 +7,7 @@
 
   switch (level) {
     case "info":
-      styles = "bg-indigo-100 text-indigo-700 border-indigo-400";
+      styles = "bg-blue-100 text-blue-700 border-blue-400";
       break;
     case "success": 
       styles = "bg-green-100 text-green-700 border-green-400";
