@@ -43,10 +43,6 @@
       status: game.status
     });
   };
-
-
-
-
 </script>
 
 
@@ -98,13 +94,9 @@
           <textarea
             name="notes"
             id="notes"
-            class="w-full appearance-none border-2 border-gray-200 px-2 py-1 focus:outline-none focus:bg-white focus:border-blue-500 rounded resize-y"
+            class="w-full appearance-none border-2 border-gray-200 px-2 py-1 focus:outline-none focus:bg-white focus:border-blue-500 rounded resize-y h-40"
             bind:value={game.notes}
           ></textarea>
-
-          <p class="text-gray-700 text-sm">
-            Markdown is supported here
-          </p>
         </div>
       </div>
 

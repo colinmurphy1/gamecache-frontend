@@ -46,7 +46,7 @@
   <table class="table-auto border-gray-400 border w-full">
     <thead class="bg-gray-200 text-gray-800 text-left border-b border-gray-400">
       <tr>
-        <th class="p-1 md:w-6/12 w-9/12">
+        <th class="p-1 lg:w-6/12">
           Title
         </th>
         <th class="p-1">
@@ -72,30 +72,31 @@
     <tbody>
     {#each games as game (game.id)}
       <tr class="border border-gray-400 {backgrounds[game.status]}">
-        <td class="p-1 font-semibold">
-          <a href="/games/id/{game.gameId}" class="hover:underline block">
+        <td class="font-semibold">
+          <a href="/games/id/{game.gameId}" class="p-1 hover:underline block">
             {game.title}
           </a>
         </td>
         <td class="p-1">
           {game.year}
         </td>
-        <td class="p-1">
-          <a href="/games/developer/{game.developerId}" class="hover:underline block">
+        <td>
+          <a href="/games/developer/{game.developerId}" class="p-1 hover:underline block">
             {game.developer}
           </a>
         </td>
-        <td class="p-1">
+        <td class="p-1" on:click="{editGame(game)}">
           <Rating stars={game.rating} />
         </td>
-        <td class="p-1">
+        <td class="p-1" on:click="{editGame(game)}">
           {status[game.status]}
         </td>
         <td class="p-1">
           <abbr title="{game.deviceName}">{game.deviceShortname}</abbr>
         </td>
-        <td class="px-1 flex space-x-1">
-          <button
+        <td class="align-middle px-1">
+          <div class="flex space-x-1">
+            <button
             class="px-2 py-0.5 rounded bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-semibold w-full"
             title="Edit"
             on:click="{editGame(game)}"
@@ -109,6 +110,7 @@
           >
             <Icon data={trash} />
           </button>
+          </div>
         </td>
       </tr>
     {/each}
