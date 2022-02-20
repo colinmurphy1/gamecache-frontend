@@ -25,7 +25,11 @@
     console.log("Clearing localstorage");
 
     // Reset userdata store
-    userData.set({});
+    userData.set({
+      username: "",
+      token: "",
+      token_expires_at: ""
+    });
 
     // Redirect to home page
     page('/');

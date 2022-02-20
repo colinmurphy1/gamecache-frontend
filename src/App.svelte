@@ -3,60 +3,76 @@
   import router from 'page';
 
   // Import routes
-  import Home from './routes/Home.svelte';
-  import News from './routes/News.svelte';
-  import AllUsers from './routes/AllUsers.svelte';
-  import Profile from './routes/UserProfile.svelte';
-  import Game from './routes/Game.svelte';
-  import Login from './routes/Login.svelte';
-  import Logout from './routes/Logout.svelte';
-  import Register from './routes/Register.svelte'
-  import NotFound from './routes/NotFound.svelte';
-  import Collection from './routes/Collection.svelte';
+  import routes from './routes.js';
 
+  // Add ping function which checks if a token is valid (and extends time if
+  // it is)
+  import pingUser from "./api/auth/ping.js";
 
+  // Import the userData store and subscribe to it
+  import { userData } from './stores/userdata.js';
+  let user;
+  userData.subscribe(value => user = value);
+
+  // page, params for the router
   let page;
-  let params = null;
+  let params;
 
+  // When set to hideNav hide the navbar. TODO: Move this to a component
   let hideNav = false;
 
-  // Specify routes
-  router('/', () => page = Home);
+  // Loop through each of the routes and create a new router() for each one, 
+  // with auth/admin checks, etc.
 
-  // News
-  router('/news', () => page = News);
+  routes.forEach(route => {
+    router(
+      route.path,
 
-  // All users
-  router('/users', () => page = AllUsers)
+      // Set the params variable
+      (ctx, next) => {
+        params = ctx.params;
+        next()
+      },
 
-  // Single user profile
-  router('/users/:username',
-    (ctx, next) => {
-      params = ctx.params;
-      next();
-    },
-    () => page = Profile
-  );
+      // Check if the user is authenticated, and forward them to the login
+      // route if not.
+      async () => {
+        if (route.auth) {
 
-  // Single game page
-  router('/games/id/:gameId',
-    (ctx, next) => {
-      params = ctx.params;
-      next();
-    },
-    () => page = Game
-  );
+          // If user has a token, check the token
+          if(user.token) {
+            const checkUser = await pingUser(user.token);
 
-  // Game collection page
-  router('/collection', () => page = Collection);
+            if (!checkUser) {
+              // Not logged in or invalid login. 
 
-  // Log in, log out, register endpoints
-  router('/login', () => page = Login);
-  router('/logout', () => page = Logout);
-  router('/register', () => page = Register);
+              // Reset userdata store
+              userData.set({
+                username: "",
+                token: "",
+                token_expires_at: ""
+              });
+              
+              // Redirect to login screen
+              router.redirect('/login');
+            }
+            
+            // Update token expiry
+            $userData.token_expires_at = checkUser.token_expires_at;
 
-  // Not Found page
-  router('/*', () => page = NotFound);
+            page = route.component;
+          }
+          else {
+            // Not logged in, redirect to login screen
+            router.redirect('/login');
+          }
+        }
+        else {
+          page = route.component;
+        }
+      }
+    )
+  });
 
   router.start();
 

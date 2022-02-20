@@ -5,9 +5,16 @@ import { writable } from "svelte/store";
  * the user token, and the time it expires.
  */
 
+// Default value
+const defaultData = {
+  username: "",
+  token: "",
+  token_expires_at: ""
+}
+
 // Load data in local storage if it exists, if it does not, create the store.
 const stored = localStorage.getItem('gamecache_userData');
-export const userData = writable(JSON.parse(stored) || {});
+export const userData = writable(JSON.parse(stored) || defaultData);
 
 // Update localstorage on update
 userData.subscribe((value) => {
