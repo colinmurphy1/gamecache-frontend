@@ -46,7 +46,7 @@
   <table class="table-auto border-gray-400 border w-full">
     <thead class="bg-gray-200 text-gray-800 text-left border-b border-gray-400">
       <tr>
-        <th class="p-1 md:w-5/12 w-9/12">
+        <th class="p-1 md:w-6/12 w-9/12">
           Title
         </th>
         <th class="p-1">
@@ -64,7 +64,7 @@
         <th class="p-1">
           Platform
         </th>
-        <th class="p-1 text-center" colspan=2>
+        <th class="p-1 text-center">
           Actions
         </th>
       </tr>
@@ -94,22 +94,20 @@
         <td class="p-1">
           <abbr title="{game.deviceName}">{game.deviceShortname}</abbr>
         </td>
-        <td class="px-1">
+        <td class="px-1 flex space-x-1">
           <button
-            class="p-0.5 rounded bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-semibold w-full"
+            class="px-2 py-0.5 rounded bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-semibold w-full"
             title="Edit"
             on:click="{editGame(game)}"
           >
-            <Icon data={pencil} /> Edit
+            <Icon data={pencil} />
           </button>
-        </td>
-        <td class="px-1">
           <button
-            class="p-0.5 rounded bg-red-400 hover:bg-red-500 text-red-900 font-semibold w-full"
+            class="px-2 py-0.5 rounded bg-red-400 hover:bg-red-500 text-red-900 font-semibold w-full"
             title="Delete"
             on:click="{deleteGame(game)}"
           >
-            <Icon data={trash} /> Delete
+            <Icon data={trash} />
           </button>
         </td>
       </tr>
