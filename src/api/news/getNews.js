@@ -1,13 +1,16 @@
 const getNews = async () => {
-  const req = await fetch("/api/news/");
+  const req = await fetch("/api/news/", {
+    method: 'GET'
+  })
+  .then(response => response.json())
+  .then(data => data)
 
   // Abort if request fails
-  if (! req.ok) {
-    return false;
+  if (req.message != "OK") {
+    throw(req.message);
   }
 
-  const json = await req.json();
-  return json.data;
+  return req.data;
 }
 
 module.exports = getNews;

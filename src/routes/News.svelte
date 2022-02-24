@@ -11,21 +11,32 @@
   export let params;
 
   // posts is an array
+  let newsLoaded = false;
   let posts = [];
 
   // Load all news articles on page load
   onMount(async () => {
-    posts = await getNews();
+    try {
+      posts = await getNews();
+    }
+    catch(error) {
+      console.log('Could not load news: ', error);
+      return false;
+    }
+    newsLoaded = true;
+
   });
 </script>
 
 <Page>
   <PageTitle title="News" />
 
-  {#each posts as post (post.id)}
-    <Post title={post.title} author={post.User.username} creationDate={post.createdAt} content={post.content} />
-  {:else}
-    <Alert message="There is no news to display." />
-  {/each}
+  {#if newsLoaded}
+    {#each posts as post (post.id)}
+      <Post title={post.title} author={post.User.username} creationDate={post.createdAt} content={post.content} />
+    {:else}
+      <Alert message="There is no news to display." />
+    {/each}
+  {/if}
 </Page>
 
