@@ -1,7 +1,3 @@
-<script>
-  export let params;
-</script>
-
 <section class="text-center py-10">
   <h1 class="md:text-6xl text-4xl my-4 font-semibold text-indigo-900">
     Gamecache

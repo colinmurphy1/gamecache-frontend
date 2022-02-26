@@ -11,7 +11,6 @@
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "autoprefixer": "^10.4.2",
-    "page": "^1.11.6",
     "postcss": "^8.4.6",
     "rollup": "^2.3.4",
     "rollup-plugin-copy": "^3.4.0",
@@ -29,6 +28,7 @@
     "marked": "^4.0.12",
     "sirv-cli": "^2.0.0",
     "svelte-awesome": "^2.4.4",
+    "svelte-navigator": "^3.1.5",
     "svelte-use-form": "^2.4.3"
   }
 }

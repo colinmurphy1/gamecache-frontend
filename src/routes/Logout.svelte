@@ -1,11 +1,9 @@
 <script>
   import { onMount } from 'svelte';
+  import { navigate } from 'svelte-navigator';
 
   // Import stores
   import { userData } from '../stores/userdata.js';
-
-  // Import page.js
-  import page from 'page';
 
   // Import API functions
   import logOutUser from "../api/auth/logout.js";
@@ -32,7 +30,7 @@
     });
 
     // Redirect to home page
-    page('/');
+    navigate('/', {replace:true});
 
     return true;
   };

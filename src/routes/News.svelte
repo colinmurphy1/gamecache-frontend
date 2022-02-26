@@ -8,8 +8,6 @@
   import PageTitle from "../components/headings/PageTitle.svelte";
   import Alert from "../components/Alert.svelte";
 
-  export let params;
-
   // posts is an array
   let newsLoaded = false;
   let posts = [];

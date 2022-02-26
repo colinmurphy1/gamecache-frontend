@@ -6,6 +6,10 @@
   import Icon from 'svelte-awesome';
   import { circle, shield, download } from 'svelte-awesome/icons';
 
+  // Focus (for accessibility)
+  import {useFocus} from 'svelte-navigator';
+  const registerFocus = useFocus();
+
   // Load API functions
   import getProfile from "../api/profile/getProfile.js";
   import getProfileGames from "../api/collection/getGames.js";
@@ -100,8 +104,12 @@
 
 <Page>
   {#if userProfile}
+  
+  <!-- This div is needed for accessibility in svelte-navigator -->
+  <div use:registerFocus class="focus:outline-none">
+    <PageTitle title={userProfile.username}/>
+  </div>
 
-  <PageTitle title={userProfile.username} />
   <div class="flex flex-row justify-between">
     <div>
       <!-- USER BADGES -->

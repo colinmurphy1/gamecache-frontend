@@ -1,4 +1,3 @@
-
 <div class="text-center p-10">
   <h1 class="text-8xl my-5 font-semibold px-4">
     404

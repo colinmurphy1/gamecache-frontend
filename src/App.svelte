@@ -1,11 +1,7 @@
 <script>
+  // Import svelte-navigator
+  import { Router, Route } from 'svelte-navigator';
   import { onMount } from 'svelte';
-
-  // Import page.js
-  import router from 'page';
-
-  // Import routes
-  import routes from './routes.js';
 
   // Add ping function which checks if a token is valid (and extends time if
   // it is)
@@ -16,42 +12,28 @@
   let user;
   userData.subscribe(value => user = value);
 
-  // page, params for the router
-  let page;
-  let params;
-
-  // When set to hideNav hide the navbar. TODO: Move this to a component
+  // When set to hideNav hide the navbar
   let hideNav = false;
 
-  // Loop through each of the routes and create a new router() for each one, 
-  // with auth/admin checks, etc.
+  // Import routes
+  import Home from './routes/Home.svelte';
+  import News from './routes/News.svelte';
+  import AllUsers from './routes/AllUsers.svelte';
+  import Profile from './routes/UserProfile.svelte';
+  import Game from './routes/Game.svelte';
+  import Login from './routes/Login.svelte';
+  import Logout from './routes/Logout.svelte';
+  import Register from './routes/Register.svelte'
+  import NotFound from './routes/NotFound.svelte';
+  import Collection from './routes/Collection.svelte';
 
-  routes.forEach(route => {
-    router(
-      route.path,
+  export let url = "";
 
-      // Set the params variable
-      (ctx, next) => {
-        params = ctx.params;
-        next()
-      },
-
-      // Check if the user is authenticated, and forward them to the login
-      // route if not.
-      () => {
-        page = route.component;
-      }
-    )
-  });
-
-  router.start();
 
   // Check user logon status on page load
   onMount(async () => {
-    
     if(user.token) {
       const checkUser = await pingUser(user.token);
-
       if (checkUser) {
         // Update token expiry
         $userData.token_expires_at = checkUser.token_expires_at;
@@ -74,11 +56,50 @@
 </script>
 
 <main>
-  {#if hideNav == false}
-    <Navbar />
-  {/if}
+  <Router url={url}>
+    {#if hideNav == false}
+      <Navbar />
+    {/if}
+    
+    <Route path="/">
+      <Home />
+    </Route>
 
-  <svelte:component this={page} params={params} on:hideNav={handleHideNav} />
+    <Route path="/news">
+      <News />
+    </Route>
+
+    <Route path="/users/*">
+      <Route path="/">
+        <AllUsers />
+      </Route>
+      <Route path=":username" let:params>
+        <Profile params={params} />
+      </Route>
+    </Route>
+  
+    <Route path="/games/id/:gameId" let:params>
+      <Game gameId={params.gameId} />
+    </Route>
+  
+    <Route path="/login">
+      <Login on:hideNav={handleHideNav} />
+    </Route>
+
+    <Route path="/logout" component={Logout} />
+
+    <Route path="/register">
+      <Register on:hideNav={handleHideNav} />
+    </Route>
+
+    <Route path="/collection" component={Collection} />
+  
+    <!-- Not Found page -->
+    <Route path="*">
+      <NotFound />
+    </Route>
+  </Router>
+
 </main>
 
 <style lang="postcss" global>

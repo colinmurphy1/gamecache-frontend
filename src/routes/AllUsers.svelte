@@ -3,15 +3,13 @@
   import getAllUsers from "../api/profile/getAllUsers.js";
 
   import Page from "../components/Page.svelte";
+  import PageTitle from "../components/headings/PageTitle.svelte";
   import UserBox from "../components/allusers/UserBox.svelte";
   import Alert from "../components/Alert.svelte";
 
   // Import the userData store
   import { userData } from '../stores/userdata.js';
 
-  export let params;
-
-  
   // Users will be stored here
   let users = [];
 
@@ -40,10 +38,7 @@
 </script>
 
 <Page>
-
-  <h1 class="text-4xl my-5 font-semibold ">
-    All users
-  </h1>
+  <PageTitle title="All users" />
 
   {#if usersLoaded}
     {#if users.length > 0}

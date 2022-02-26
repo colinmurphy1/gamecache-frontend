@@ -1,10 +1,8 @@
 <script>
   import { onMount, onDestroy } from "svelte";
-  import { circle, shield, download } from 'svelte-awesome/icons';
+  import { download } from 'svelte-awesome/icons';
   import Icon from 'svelte-awesome';
   
-  export let params;
-
   // Import stores
   import { userData } from '../stores/userdata.js';
 
@@ -27,7 +25,6 @@
 
   // Show edit game modal
   let editingGame = false;
-  let updateGameReq; 
 
   let gameDetails = {}; 
 
@@ -69,7 +66,7 @@
 
     // send changes to server
     try {
-      updateGameReq = await updateGame(event.detail, $userData.token);
+      await updateGame(event.detail, $userData.token);
     }
     catch(error) {
       console.log('Could not update game collection: ', error);
@@ -99,8 +96,8 @@
 
 
 {#if editingGame}
-<!-- Edit game modal -->
-<EditGame game={gameDetails} on:hideModal={handleHideModal} on:saveGame={handleSaveGame}/>
+  <!-- Edit game modal -->
+  <EditGame game={gameDetails} on:hideModal={handleHideModal} on:saveGame={handleSaveGame}/>
 {/if}
 
 <Page>

@@ -7,6 +7,10 @@
   // Import stores
   import { userData } from '../stores/userdata.js';
 
+  // Focus (for accessibility)
+  import {useFocus} from 'svelte-navigator';
+  const registerFocus = useFocus();
+
   // Load components
   import Page from "../components/Page.svelte";
   import PageTitle from "../components/headings/PageTitle.svelte";
@@ -16,26 +20,27 @@
 
   let game;
 
-  export let params;
+  export let gameId;
 
   onMount(async () => {
     // Load Game
     try {
-      game = await getGame(params.gameId, $userData.token);
+      game = await getGame(gameId, $userData.token);
     }
     catch(error) {
       console.log('Could not load game: ', error);
       return false;
     }
-
-    console.log(game);
   });
 
 </script>
 
 <Page>
   {#if game}
-    <PageTitle title={game.info.title} center=true />
+
+    <div use:registerFocus class="focus:outline-none">
+      <PageTitle title={game.info.title} center=true />
+    </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2">
       <div class="col-span-1 lg:mr-2">

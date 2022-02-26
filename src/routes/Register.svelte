@@ -1,6 +1,6 @@
 <script>
   import { onDestroy, onMount, createEventDispatcher } from "svelte";
-  import page from 'page';
+  import { navigate } from 'svelte-navigator';
 
   // Import Svelte-use-form for the form
   import { useForm, validators, required, minLength, email } from "svelte-use-form";
@@ -26,9 +26,6 @@
   import CardTitle from "../components/card/CardTitle.svelte";
   import SiteTitle from "../components/SiteTitle.svelte";
 
-
-  export let params;
-  
   // Pre fill username and password info
   let username = "";
   let password = "";
@@ -81,7 +78,7 @@
     userData.set(login);
 
     // Redirect to home page
-    page('/');
+    navigate('/', {replace:true});
 
     return true;
   };
