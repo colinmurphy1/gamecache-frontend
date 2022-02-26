@@ -9,7 +9,8 @@ import { writable } from "svelte/store";
 const defaultData = {
   username: "",
   token: "",
-  token_expires_at: ""
+  token_expires_at: "",
+  admin: false
 }
 
 // Load data in local storage if it exists, if it does not, create the store.

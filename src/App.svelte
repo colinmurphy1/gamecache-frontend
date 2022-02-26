@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from 'svelte';
+
   // Import page.js
   import router from 'page';
 
@@ -36,45 +38,31 @@
 
       // Check if the user is authenticated, and forward them to the login
       // route if not.
-      async () => {
-        if (route.auth) {
-
-          // If user has a token, check the token
-          if(user.token) {
-            const checkUser = await pingUser(user.token);
-
-            if (!checkUser) {
-              // Not logged in or invalid login. 
-
-              // Reset userdata store
-              userData.set({
-                username: "",
-                token: "",
-                token_expires_at: ""
-              });
-              
-              // Redirect to login screen
-              router.redirect('/login');
-            }
-            
-            // Update token expiry
-            $userData.token_expires_at = checkUser.token_expires_at;
-
-            page = route.component;
-          }
-          else {
-            // Not logged in, redirect to login screen
-            router.redirect('/login');
-          }
-        }
-        else {
-          page = route.component;
-        }
+      () => {
+        page = route.component;
       }
     )
   });
 
   router.start();
+
+  // Check user logon status on page load
+  onMount(async () => {
+    
+    if(user.token) {
+      const checkUser = await pingUser(user.token);
+
+      if (checkUser) {
+        // Update token expiry
+        $userData.token_expires_at = checkUser.token_expires_at;
+        return true;
+      }
+      // User not logged in, clear local storage
+      userData.set({});
+      return false;
+    }
+  });
+
 
   // Handle hiding nav and footer on specific pages
   function handleHideNav(event) {

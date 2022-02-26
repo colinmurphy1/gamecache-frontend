@@ -9,6 +9,8 @@ import Logout from './routes/Logout.svelte';
 import Register from './routes/Register.svelte'
 import NotFound from './routes/NotFound.svelte';
 import Collection from './routes/Collection.svelte';
+import AdminGames from './routes/admin/Games.svelte';
+
 
 export default [
   // Home page
@@ -64,6 +66,11 @@ export default [
   {
     path: '/register',
     component: Register,
+  },
+
+  {
+    path: '/admin/games',
+    component: AdminGames
   },
 
   // Not Found Page
