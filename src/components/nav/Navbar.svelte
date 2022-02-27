@@ -16,6 +16,7 @@
       <NavItem url="/news" title="News" />
       <NavItem url="/users" title="Users" />
       {#if user.token}<NavItem url="/collection" title="My Collection" />{/if}
+      {#if user.admin}<NavItem url="/admin" title="Admin" />{/if}
     </ul>
 
     <!-- Display a border on small screens -->

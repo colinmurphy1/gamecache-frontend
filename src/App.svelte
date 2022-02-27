@@ -29,6 +29,12 @@
   import NotFound from './routes/NotFound.svelte';
   import Collection from './routes/Collection.svelte';
 
+  import AdminHome from "./routes/admin/AdminHome.svelte";
+  import AdminAddGame from "./routes/admin/AddGame.svelte";
+  import AdminAddDeveloper from "./routes/admin/AddDeveloper.svelte";
+  import AdminAddPlatform from "./routes/admin/AddPlatform.svelte";
+  import AdminAddManufacturer from "./routes/admin/AddManufacturer.svelte";
+
   export let url = "";
 
 
@@ -88,7 +94,9 @@
       <Login on:hideNav={handleHideNav} />
     </Route>
 
-    <Route path="/logout" component={Logout} primary={false} />
+    <Route path="/logout" primary={false}>
+      <Logout />
+    </Route>
 
     <Route path="/register">
       <Register on:hideNav={handleHideNav} />
@@ -97,15 +105,12 @@
     <ProtectedRoute path="/collection" component={Collection} />
 
     <!-- Site Admin -->
-    <ProtectedRoute path="/admin" admin={true}>
-      <Route path="/">
-        Admin
-      </Route>
-
-      <Route path="/games/add">
-        Add Games
-      </Route>
-    </ProtectedRoute>
+    <ProtectedRoute path="/admin" component={AdminHome} admin={true}/>
+    <ProtectedRoute path="/admin/game/add" component={AdminAddGame} admin={true}/>
+    <ProtectedRoute path="/admin/developer/add" component={AdminAddDeveloper} admin={true}/>
+    <ProtectedRoute path="/admin/platform/add" component={AdminAddPlatform} admin={true}/>
+    <ProtectedRoute path="/admin/manufacturer/add" component={AdminAddManufacturer} admin={true}/>
+    <!-- Site Admin End -->
   
     <!-- Not Found page -->
     <Route path="*">
