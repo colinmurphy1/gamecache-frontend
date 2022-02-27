@@ -15,6 +15,8 @@
   // When set to hideNav hide the navbar
   let hideNav = false;
 
+  import ProtectedRoute from "./components/routing/ProtectedRoute.svelte";
+
   // Import routes
   import Home from './routes/Home.svelte';
   import News from './routes/News.svelte';
@@ -86,13 +88,24 @@
       <Login on:hideNav={handleHideNav} />
     </Route>
 
-    <Route path="/logout" component={Logout} />
+    <Route path="/logout" component={Logout} primary={false} />
 
     <Route path="/register">
       <Register on:hideNav={handleHideNav} />
     </Route>
 
-    <Route path="/collection" component={Collection} />
+    <ProtectedRoute path="/collection" component={Collection} />
+
+    <!-- Site Admin -->
+    <ProtectedRoute path="/admin" admin={true}>
+      <Route path="/">
+        Admin
+      </Route>
+
+      <Route path="/games/add">
+        Add Games
+      </Route>
+    </ProtectedRoute>
   
     <!-- Not Found page -->
     <Route path="*">

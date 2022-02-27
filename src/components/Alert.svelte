@@ -22,7 +22,7 @@
 
 </script>
 
-<div class="py-1 px-2 my-2 border {styles} flex flex-row space-x-4">
+<div class="py-1 px-2 my-2 border {styles}">
   {#if title}
   <div class="font-bold">
     {title}

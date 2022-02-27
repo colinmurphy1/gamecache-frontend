@@ -39,7 +39,7 @@
     // Check if logged in
     if(! $userData.token) {
       // Not logged in, redirect to login page
-      page('/login');
+      navigate('/login', {replace:true});
       return false;
     }
 
