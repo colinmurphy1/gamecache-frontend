@@ -14,6 +14,10 @@
   import PageTitle from "../../components/headings/PageTitle.svelte";
   import Alert from "../../components/Alert.svelte";
 
+  import Icon from 'svelte-awesome';
+  import { check } from 'svelte-awesome/icons';
+
+  let message = "";
 
   let users = [];
 
@@ -26,7 +30,11 @@
       console.log('Error:', error);
       return false;
     }
-    console.log(disableUser);
+
+    //console.log(disableUser);
+    message = `${disableUser.username} is now ${disableUser.enabled ? 'enabled' : 'disabled'}`
+
+    // Update table
     await getUsers();
   };
 
@@ -37,8 +45,10 @@
     }
     catch(error) {
       console.log('Error loading users:', error);
+      message = "Could not load users";
       return false;
     }
+    return true;
   };
 
   // Load all users
@@ -50,6 +60,10 @@
 
 <AdminPage>
   <PageTitle title="User Management" />
+
+  {#if message}
+    <Alert message={message} />
+  {/if}
 
   {#if users.length > 0}
   <table class="table-auto border-gray-400 border w-full">
@@ -78,8 +92,11 @@
     <tbody>
       {#each users as user (user.id)}
         <tr class="border border-gray-400">
-          <td class="p-1">
-            <Link to="/users/{user.username}">
+          <td class="p-1 font-semibold">
+            <Link
+              to="/users/{user.username}"
+              class="hover:underline block"
+            >
               {user.username}
             </Link>
           </td>
@@ -98,9 +115,11 @@
           <td class="p-1">
             {#if user.username != $userData.username}
               <button
-                class="px-2 py-0.5 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold"
+                class="px-2 py-0.5 rounded {user.enabled ? 'bg-red-400 hover:bg-red-500' : 'bg-blue-400 hover:bg-blue-500'} text-white font-semibold"
                 on:click={disableUser(user.username)}
-              >Disable</button>
+              >
+                {user.enabled ? 'Disable' : 'Enable'}
+              </button>
             {/if}
           </td>
         </tr>
