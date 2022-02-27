@@ -19,8 +19,8 @@
           <NavItem url="/admin/user/" title="Manage Users" />
         </NavSection>
         <NavSection title="News">
-          <NavItem url="/admin/news/post/add" title="New Post" />
-          <NavItem url="/admin/news/post/manage" title="Manage Posts" />
+          <NavItem url="/admin/news/add" title="New Post" />
+          <NavItem url="/admin/news/manage" title="Manage Posts" />
         </NavSection>
       </ul>
     </aside>
