@@ -53,6 +53,9 @@
           Year
         </th>
         <th class="p-1">
+          Platform
+        </th>
+        <th class="p-1">
           Developer
         </th>
         <th class="p-1">
@@ -60,9 +63,6 @@
         </th>
         <th class="p-1">
           Status
-        </th>
-        <th class="p-1">
-          Platform
         </th>
         <th class="p-1 text-center">
           Actions
@@ -80,19 +80,23 @@
         <td class="p-1">
           {game.year}
         </td>
+        <td class="p-1">
+          <abbr title="{game.deviceName}">{game.deviceShortname}</abbr>
+        </td>
         <td>
           <a href="/games/developer/{game.developerId}" class="p-1 hover:underline block">
             {game.developer}
           </a>
         </td>
-        <td class="p-1" on:click="{editGame(game)}">
-          <Rating stars={game.rating} />
+        <td>
+          <button class="p-1 w-full text-left" on:click="{editGame(game)}">
+            <Rating stars={game.rating} />
+          </button>
         </td>
-        <td class="p-1" on:click="{editGame(game)}">
-          {status[game.status]}
-        </td>
-        <td class="p-1">
-          <abbr title="{game.deviceName}">{game.deviceShortname}</abbr>
+        <td>
+          <button class="p-1 w-full text-left" on:click="{editGame(game)}">
+            {status[game.status]}
+          </button>
         </td>
         <td class="align-middle px-1">
           <div class="flex space-x-1">
