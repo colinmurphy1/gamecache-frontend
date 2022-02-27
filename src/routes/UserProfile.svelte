@@ -74,6 +74,11 @@
           errorMessage = "The profile you are trying to view does not exist."
           errorLevel = "info"
           break;
+        // User account is disabled
+        case "UserDisabled":
+          errorMessage = "This account has been disabled."
+          errorLevel = "danger"
+          break;
       }
       return false;
     }

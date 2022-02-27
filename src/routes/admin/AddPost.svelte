@@ -46,24 +46,24 @@
   <form use:form on:submit|preventDefault={handleNewPost}>
     <div class="mt-4">
       <input
-      type="text"
-      name="postTitle"
-      id="postTitle"
-      class="w-full form-select appearance-none border-2 border-gray-200 px-2 py-1 focus:outline-none focus:bg-white focus:border-blue-500 rounded"
-      bind:value={postTitle}
-      use:validators={[required], [minLength(1)]}
-      placeholder="Post title"
-    />
+        type="text"
+        name="postTitle"
+        id="postTitle"
+        class="w-full form-select appearance-none border-2 border-gray-200 px-2 py-1 focus:outline-none focus:bg-white focus:border-blue-500 rounded"
+        bind:value={postTitle}
+        use:validators={[required], [minLength(1)]}
+        placeholder="Post title"
+      />
     </div>
     <div class="mt-4">
       <textarea
-      name="postContent"
-      id="postContent"
-      class="w-full appearance-none border-2 border-gray-200 px-2 py-1 focus:outline-none focus:bg-white focus:border-blue-500 rounded resize-y h-40"
-      bind:value={postContent}
-      use:validators={[required]}
-      placeholder="Post content"
-    ></textarea>
+        name="postContent"
+        id="postContent"
+        class="w-full appearance-none border-2 border-gray-200 px-2 py-1 focus:outline-none focus:bg-white focus:border-blue-500 rounded resize-y h-40"
+        bind:value={postContent}
+        use:validators={[required]}
+        placeholder="Post content"
+      ></textarea>
     </div>
     <div class="mt-4">
       <Button text="Submit post" />
