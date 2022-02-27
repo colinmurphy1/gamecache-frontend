@@ -35,6 +35,7 @@
   import AdminAddPlatform from "./routes/admin/AddPlatform.svelte";
   import AdminAddManufacturer from "./routes/admin/AddManufacturer.svelte";
   import AdminAddPost from "./routes/admin/AddPost.svelte";
+  import AdminUserManagement from "./routes/admin/UserManagement.svelte";
 
   export let url = "";
 
@@ -112,6 +113,7 @@
     <ProtectedRoute path="/admin/platform/add" component={AdminAddPlatform} admin={true}/>
     <ProtectedRoute path="/admin/manufacturer/add" component={AdminAddManufacturer} admin={true}/>
     <ProtectedRoute path="/admin/news/add" component={AdminAddPost} admin={true}/>
+    <ProtectedRoute path="/admin/users" component={AdminUserManagement} admin={true}/>
     <!-- Site Admin End -->
   
     <!-- Not Found page -->

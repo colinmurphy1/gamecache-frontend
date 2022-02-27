@@ -16,7 +16,7 @@
           <NavItem url="/admin/manufacturer/add" title="Add Manufacturer" />
         </NavSection>
         <NavSection title="User Management">
-          <NavItem url="/admin/user/" title="Manage Users" />
+          <NavItem url="/admin/users/" title="Manage Users" />
         </NavSection>
         <NavSection title="News">
           <NavItem url="/admin/news/add" title="New Post" />
