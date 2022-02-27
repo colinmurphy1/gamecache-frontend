@@ -38,12 +38,15 @@
     }
 
     try {
-      const del = await deleteGame(event.detail.gameId, $userData.token);
+      await deleteGame(event.detail.id, $userData.token);
     }
     catch(exception) {
       console.log('Could not delete game:', exception);
       return false;
     }
+
+    // Update game list
+    await loadGames();
 
     return true;
   };
@@ -74,11 +77,15 @@
     }
 
     console.log('Saved game');
+
+    // Update game list
+    await loadGames();
+
     return true;
   }
 
-  // Load collection on page load
-  onMount(async () => {
+  // Load games
+  const loadGames = async () => {
     // Load Games
     try {
       gameCollection = await getProfileGames(username, $userData.token);
@@ -90,6 +97,11 @@
 
     gamesOwned = gameCollection.length;
     return true;
+  };
+
+  // Load collection on page load
+  onMount(async () => {
+    await loadGames();
   });
 
 </script>
