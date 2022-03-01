@@ -1,4 +1,7 @@
 <script>
+  // date-fns
+  import { format, parseISO } from 'date-fns';
+
   // Font Awesome
   import Icon from 'svelte-awesome';
   import { calendar, user } from 'svelte-awesome/icons';
@@ -10,6 +13,8 @@
   export let author;
   export let creationDate;
   export let content;
+
+  creationDate = format(parseISO(creationDate), 'd MMM yyyy');
 </script>
 
 <article class="shadow bg-gray-100 my-4 border border-gray-400">

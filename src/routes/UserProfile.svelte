@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { marked } from 'marked';
+  import { format, parseISO } from 'date-fns';
 
   // Font Awesome
   import Icon from 'svelte-awesome';
@@ -35,6 +36,11 @@
 
   let userProfile;
   let userProfileGames;
+
+  // changes to true once the profile and collection has loaded
+  let userProfileLoaded = false;
+
+  let joinDate = "";
   let gamesOwned = 0;
 
   let errorMessage = ""
@@ -93,6 +99,10 @@
     }
 
     gamesOwned = userProfileGames.length;
+    // Format join date like 28 Feb 2022
+    joinDate = format(parseISO(userProfile.dateJoined), 'd MMM yyyy');
+
+    userProfileLoaded = true;
   });
 
 
@@ -108,7 +118,7 @@
 
 
 <Page>
-  {#if userProfile}
+  {#if userProfileLoaded}
   
   <!-- This div is needed for accessibility in svelte-navigator -->
   <div use:registerFocus class="focus:outline-none">
@@ -152,7 +162,7 @@
     <div class="col-span-1 lg:pr-2">
       <Card>
         <CardTitle title="Stats" />
-        <CardRow key="Date joined:" value={userProfile.dateJoined} />
+        <CardRow key="Date joined:" value={joinDate} />
         <CardRow key="Games in collection:" value={gamesOwned} />
       </Card>
       {#if userProfile.bio}
@@ -207,6 +217,8 @@
 
   {#if errorMessage != ""}
     <Alert message={errorMessage} level={errorLevel} />
+    {:else}
+    <p>Loading profile</p>
   {/if}
 
 {/if}
