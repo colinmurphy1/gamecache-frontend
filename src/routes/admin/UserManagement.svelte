@@ -76,6 +76,9 @@
           Email
         </th>
         <th class="p-1">
+          IP Address
+        </th>
+        <th class="p-1">
           Online
         </th>
         <th class="p-1">
@@ -102,6 +105,21 @@
           </td>
           <td class="p-1">
             {user.email}
+          </td>
+          <td class="p-1">
+            <!-- Some users may not have an IP due to db migrations -->
+            <!--{user.last_ip ? user.last_ip : 'None'}-->
+            {#if user.last_ip}
+              <a
+                href="https://tools.keycdn.com/geo?host={user.last_ip}"
+                class="hover:underline block"
+                target="_blank"
+              >
+                {user.last_ip}
+              </a>
+            {:else}
+              None
+            {/if}
           </td>
           <td class="p-1">
             {user.online ? 'Yes' : 'No'}
