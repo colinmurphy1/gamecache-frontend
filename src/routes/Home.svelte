@@ -1,5 +1,5 @@
 <section class="text-center py-10">
-  <h1 class="md:text-6xl text-4xl my-4 font-semibold text-indigo-900">
+  <h1 class="md:text-6xl text-4xl my-4 font-semibold text-indigo-900 focus:outline-none">
     Gamecache
   </h1>
   <div class="text-xl md:text-2xl my-1 font-semibold">
