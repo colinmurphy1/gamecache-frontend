@@ -14,9 +14,6 @@
   import PageTitle from "../../components/headings/PageTitle.svelte";
   import Alert from "../../components/Alert.svelte";
 
-  import Icon from 'svelte-awesome';
-  import { check } from 'svelte-awesome/icons';
-
   let message = "";
 
   let users = [];
