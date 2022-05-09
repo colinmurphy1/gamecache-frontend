@@ -120,9 +120,6 @@
     <Alert title="No Games" message="You currently do not have any games" />
 
   {:else}
-
-    <p class="my-2">There are {gamesOwned} games in your collection.</p>
-
     <GameCollection
       games={gameCollection}
       on:editGame={handleEditGame}
@@ -130,13 +127,17 @@
     />
 
     <p class="my-2">
-      Export collection: 
+      <strong>Games in collection:</strong>
+      {gamesOwned}
+    </p>
+
+    <p class="my-2">
       <a
         href="/api/collection/user/{username}.csv"
         class="px-2 py-0.5 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold"
         target="_blank"
       >
-        <Icon data={download} /> CSV
+        <Icon data={download} /> Download CSV
       </a>
     </p>
 

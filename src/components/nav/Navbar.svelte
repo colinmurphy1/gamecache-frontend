@@ -15,6 +15,7 @@
       <NavItem url="/" title="Home" />
       <NavItem url="/news" title="News" />
       <NavItem url="/users" title="Users" />
+      <NavItem url="/games" title="Games" />
       {#if user.token}<NavItem url="/collection" title="My Collection" />{/if}
       {#if user.admin}<NavItem url="/admin" title="Admin" />{/if}
     </ul>
@@ -32,7 +33,7 @@
       {:else}
         <!-- Not logged in -->
         <NavItem url="/login" title="Login" />
-        <NavItem url="/register" title="Register" />
+        <NavItem url="/register" title="Sign Up" />
       {/if}
     </ul>
   </div>

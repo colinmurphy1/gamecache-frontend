@@ -27,7 +27,9 @@
   import Logout from './routes/Logout.svelte';
   import Register from './routes/Register.svelte'
   import NotFound from './routes/NotFound.svelte';
+  import NotImplemented from './routes/NotImplemented.svelte';
   import Collection from './routes/Collection.svelte';
+  import GamesList from './routes/GamesList.svelte';
 
   import AdminHome from "./routes/admin/AdminHome.svelte";
   import AdminAddGame from "./routes/admin/AddGame.svelte";
@@ -88,8 +90,28 @@
       </Route>
     </Route>
   
-    <Route path="/games/id/:gameId" let:params>
-      <Game gameId={params.gameId} />
+    <Route path="/games/*">
+
+      <!-- GAME LIST -->
+      <Route path="/">
+        <GamesList />
+      </Route>
+
+      <!-- SINGLE GAME VIEW -->
+      <Route path="/id/:gameId" let:params>
+        <Game gameId={params.gameId} />
+      </Route>
+
+      <!-- GAME DEVELOPER VIEW -->
+      <Route path="/developer/:developerId" let:params>
+        <NotImplemented />
+      </Route>
+
+      <!-- GAME PLATFORM VIEW -->
+      <Route path="/platform/:platformId" let:params>
+        <NotImplemented />
+      </Route>
+
     </Route>
   
     <Route path="/login">
