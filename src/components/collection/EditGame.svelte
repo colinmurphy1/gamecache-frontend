@@ -10,6 +10,10 @@
   // UI Components
   import SmallHeading from "../headings/SmallHeading.svelte";
 
+  // Font Awesome icons
+  import Icon from 'svelte-awesome';
+  import { save, close } from 'svelte-awesome/icons';
+
   // Import game info prop
   export let game; 
 
@@ -102,9 +106,11 @@
 
       <div class="flex flex-row justify-between mt-4">
         <button class="px-4 py-1 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold">
+          <Icon data={save} class="align-sub" />
           Save
         </button>
         <button class="px-4 py-1 rounded bg-gray-400 hover:bg-gray-500 text-white font-semibold" on:click={hideModal}>
+          <Icon data={close} class="align-sub" />
           Cancel
         </button>
       </div>

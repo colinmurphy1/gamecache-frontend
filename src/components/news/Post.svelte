@@ -24,11 +24,11 @@
 
   <div class="border-b border-gray-400 text-sm">
     <div class="inline-block py-1 px-2">
-      <Icon data={calendar} /> {creationDate}
+      <Icon data={calendar} class="align-sub" /> {creationDate}
     </div>
     <div class="inline-block py-1 px-2">
       <a href="/users/{author}" class="px-2 py-0.5 rounded text-sm bg-blue-400 hover:bg-blue-500 text-white font-semibold">
-        <Icon data={user} /> 
+        <Icon data={user} class="align-sub" /> 
         {author}
       </a>
     </div>

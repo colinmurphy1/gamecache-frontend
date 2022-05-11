@@ -79,7 +79,7 @@
               class="px-2 py-0.5 rounded bg-green-400 hover:bg-green-500 text-green-900 font-semibold w-full"
               on:click={addGame(game)}
             >
-              <Icon data={plus} /> Add
+              <Icon data={plus} class="align-sub" /> Add
             </button>
           {/if}
        </td>

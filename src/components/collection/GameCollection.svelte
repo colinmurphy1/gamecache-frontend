@@ -105,14 +105,14 @@
             title="Edit"
             on:click="{editGame(game)}"
           >
-            <Icon data={pencil} />
+            <Icon data={pencil} class="align-sub" />
           </button>
           <button
             class="px-2 py-0.5 rounded bg-red-400 hover:bg-red-500 text-red-900 font-semibold w-full"
             title="Delete"
             on:click="{deleteGame(game)}"
           >
-            <Icon data={trash} />
+            <Icon data={trash} class="align-sub" />
           </button>
           </div>
         </td>

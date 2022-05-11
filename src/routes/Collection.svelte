@@ -127,7 +127,7 @@
     />
 
     <p class="my-2">
-      <strong>Games in collection:</strong>
+      <span class="font-semibold">Games in collection:</span>
       {gamesOwned}
     </p>
 
@@ -137,7 +137,7 @@
         class="px-2 py-0.5 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold"
         target="_blank"
       >
-        <Icon data={download} /> Download CSV
+        <Icon data={download} class="align-sub" /> Download CSV
       </a>
     </p>
 

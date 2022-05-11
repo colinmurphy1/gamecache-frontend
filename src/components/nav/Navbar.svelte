@@ -1,4 +1,5 @@
 <script>
+  // Import components
   import NavItem from './NavItem.svelte';
   import LoggedInAs from './LoggedInAs.svelte';
 

@@ -132,7 +132,7 @@
         <!-- User online -->
         {#if userProfile.online}
         <div class="px-2 py-0.5 rounded text-sm bg-green-100 text-green-900 font-semibold">
-          <Icon data={circle} class="inline-block align-middle"/> Online
+          <Icon data={circle} class="inline-block align-sub"/> Online
         </div>
         {/if}
         <!-- User online END -->
@@ -140,7 +140,7 @@
         <!-- User Admin -->
         {#if userProfile.admin}
         <div class="px-2 py-0.5 rounded text-sm bg-blue-100 text-blue-900 font-semibold">
-          <Icon data="{shield}" class="inline-block align-middle" /> Site Admin 
+          <Icon data="{shield}" class="inline-block align-sub" /> Site Admin 
         </div>
         {/if}
         <!-- User Admin END -->
@@ -203,7 +203,7 @@
           class="px-2 py-0.5 rounded bg-blue-400 hover:bg-blue-500 text-white font-semibold"
           target="_blank"
         >
-          <Icon data={download} /> CSV
+          <Icon data={download} class="align-sub" /> CSV
         </a>
       </p>
       {/if}
