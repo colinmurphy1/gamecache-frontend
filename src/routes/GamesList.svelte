@@ -16,7 +16,6 @@
   // Import stores
   import { userData } from '../stores/userdata.js';
 
-
   let games = {}; // Games list will be in this object
   let gameIds = []; // IDs of games in users' collection
   let loaded = false;
@@ -39,6 +38,11 @@
       return false;
     }
 
+    // Add game to game collection object
+    // Note: .push() does not work, as Svelte only looks for variable assignments. Concatenating the old array seems to work.
+    gameIds = [...gameIds, gameDetails.id];
+    
+    return true;
   }
 
 
@@ -81,7 +85,6 @@
 
 <Page>
   <PageTitle title="Games" />
-
   {#if loaded}
     {#if games.length > 0}
       <GameTable
